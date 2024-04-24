@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a New Recipe</title>
+</head>
+<body>
+    <div class="container">
+        <h1> Welcome, {{logged_user.username}}</h1>
+        <a href="/recipes">Home</a>
+        <a href="/logout">Logout</a>
+
+        <form action="/recipes/new/process" method="POST">
+            <p>
+                <label for="recipe_name" class="form-label" >Dish Name:</label>
+                <input type="text" name="recipe_name" class="form-control" />
+            </p>
+            <p>
+                <label for="description" class="form-label" >Description:</label>
+                <textarea name="description" class="form-control"></textarea>
+            </p>
+            <p>
+                <label for="instructions" class="form-label" >Instructions:</label>
+                <textarea name="instructions" class="form-control"></textarea>
+            </p>
+            <p>
+                <label for="date_cooked" class="form-label" >Date Cooked / Made:</label>
+                <input type="date" name="date_cooked" class="form-control" />
+            </p>
+            <p>Under 30?
+                <input type="radio" id="1" name="under_30" value="1">
+                <label for="1">Yes</label>
+                <input type="radio" id="0" name="under_30" value="0">
+                <label for="0">No</label>
+                
+            </p>
+            <input type="hidden" name="user_id" value="{{session.user_id}}">
+            <button type="submit" class="btn btn=primary">Add Recipe</button>
+        </form>
+        {% with messages = get_flashed_messages()%}
+        {% if messages %}
+            {% for message in messages %}
+            <p class="text-danger">{{message}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    </div>
+
+</body>
+</html>
