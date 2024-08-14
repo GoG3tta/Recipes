@@ -11,14 +11,15 @@
             <a href="/recipes/new">Add a new recipe</a>
             <a href="/logout">Logout</a>
         <h1>{{recipe_with_owner.name}}</h1>
+        <h3>Created By {{recipe_with_owner.user.first_name}}</h3>
         <p>Description</p>
         <p>{{recipe_with_owner.description}}</p>
         <p>Instructions</p>
         <p>{{recipe_with_owner.instructions}}</p>
         <p>Date Cooked</p>
         <p>{{recipe_with_owner.date_cooked}}</p>
-        <p><a href="/recipes/{{recipe_with_owner.id}}/edit">Edit</a></p>
-        <p><a href="/recipes/{{recipe_with_owner.id}}/delete">Delete</a></p>
+        <p><a href='/recipes'>Back</a></p>
+        <!-- <p><a href="/recipes/{{recipe_with_owner.id}}/delete">Delete</a></p> -->
     
 </body>
 </html>

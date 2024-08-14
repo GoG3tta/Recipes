@@ -36,7 +36,7 @@
                 <label for="0">No</label>
             </p>
             <input type="hidden" name="user_id" value="{{recipe.user.id}}">
-            <button type="submit" class="btn btn=primary">Add Recipe</button>
+            <button type="submit" class="btn btn=primary">Update Recipe</button>
         </form>
         {% with messages = get_flashed_messages()%}
         {% if messages %}
@@ -46,6 +46,7 @@
         {% endif %}
     {% endwith %}
 
+    <p><a href='/recipes'>Back</a></p>
     </div>
 
     

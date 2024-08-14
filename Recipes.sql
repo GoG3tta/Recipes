@@ -7,14 +7,12 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema recipe_schema
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `recipe_schema` ;
 
 -- -----------------------------------------------------
 -- Schema recipe_schema
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `recipe_schema` DEFAULT CHARACTER SET utf8 ;
--- -----------------------------------------------------
--- Schema recipes_schema
--- -----------------------------------------------------
 USE `recipe_schema` ;
 
 -- -----------------------------------------------------
@@ -25,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `recipe_schema`.`users` (
   `first_name` VARCHAR(45) NOT NULL,
   `last_name` VARCHAR(45) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
-  `password` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
   `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
@@ -33,9 +31,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `recipe_schema`.`add_recipe`
+-- Table `recipe_schema`.`recipe`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `recipe_schema`.`add_recipe` (
+CREATE TABLE IF NOT EXISTS `recipe_schema`.`recipe` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `recipe_name` VARCHAR(255) NOT NULL,
   `description` VARCHAR(255) NOT NULL,
@@ -45,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `recipe_schema`.`add_recipe` (
   `user_id` INT NOT NULL,
   `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`id`, `user_id`),
   INDEX `fk_add_recipe_users_idx` (`user_id` ASC) VISIBLE,
   CONSTRAINT `fk_add_recipe_users`
     FOREIGN KEY (`user_id`)

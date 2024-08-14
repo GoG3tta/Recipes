@@ -12,9 +12,9 @@ class User: # CHANGE PROJECT TO FILE NAME
         self.first_name = data['first_name']
         self.last_name = data['last_name']
         self.email = data['email']
+        self.password = data['password']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
-        self.password = data['password']
 
     @classmethod
     def get_email(cls, email):
@@ -36,20 +36,20 @@ class User: # CHANGE PROJECT TO FILE NAME
         user_id =connectToMySQL(DATABASE).query_db(query, form_data)
         return user_id
 
-    @classmethod
-    def get_all(cls):
-        query = '''
-            SELECT * FROM users;
-        '''
-        results = connectToMySQL(DATABASE).query_db(query)
+    # @classmethod
+    # def get_all(cls):
+    #     query = '''
+    #         SELECT * FROM users;
+    #     '''
+    #     results = connectToMySQL(DATABASE).query_db(query)
 
-        users = []
+    #     users = []
 
-        for row in results:
-            new_user = cls(row)
-            users.append(new_user)
+    #     for row in results:
+    #         new_user = cls(row)
+    #         users.append(new_user)
 
-        return users
+    #     return users
 
 
     @staticmethod
@@ -67,6 +67,16 @@ class User: # CHANGE PROJECT TO FILE NAME
         if len(data['email']) == 0:
             flash("Email cannot be blank.")
             is_valid = False
+        elif not EMAIL_REGEX.match(data["email"]):
+            flash("Email is invalid")
+            is_valid = False
+        else:
+            print('!!!!!!!!!checking email user!!!!!')
+            potential_user= User.get_email(data['email'])
+            if potential_user:
+                flash("email is in the system Please Log In")
+                is_valid = False
+                
 
         if len(data['password']) == 0:
             flash("Password cannot be blank.")
@@ -76,11 +86,8 @@ class User: # CHANGE PROJECT TO FILE NAME
             flash("Password does not match.")
             is_valid = False
 
-
-        if not EMAIL_REGEX.match(data["email"]):
-            flash("Email is invalid")
-            is_valid = False
         return is_valid
+
 
 
 
@@ -92,6 +99,8 @@ class User: # CHANGE PROJECT TO FILE NAME
             SELECT * FROM users WHERE id = %(id)s;
         '''
         result = connectToMySQL(DATABASE).query_db(query, data)
+        if len(result) <1:
+            return False
         return User(result[0])
 
 

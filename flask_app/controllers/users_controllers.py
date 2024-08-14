@@ -10,7 +10,6 @@ def index():
     return render_template('recipe_logreg.html')
 
 
-
 @app.route('/register', methods=['POST'])
 def register():
     print(request.form)
@@ -55,19 +54,19 @@ def login():
 #     return redirect ('/')
 
 
-@app.route('/users/<int:id>/edit/process', methods=['POST'])
-def update_user(id):
-    form_data = {
-        **request.form,
-        'id' : id
-    }
-    User.update(form_data)
-    return redirect('/users')
+# @app.route('/users/<int:id>/edit/process', methods=['POST'])
+# def update_user(id):
+#     form_data = {
+#         **request.form,
+#         'id' : id
+#     }
+#     User.update(form_data)
+#     return redirect('/users')
 
-#DELETE
-@app.route('/users/<int:id>/destroy', methods=['POST'])
-def delete(id):
-    User.delete(id)
-    # return render_template('/test.html')
-    print('anything')
-    return redirect('/users')
+# #DELETE
+# @app.route('/users/<int:id>/destroy', methods=['POST'])
+# def delete(id):
+#     User.delete(id)
+#     # return render_template('/test.html')
+#     print('anything')
+#     return redirect('/users')

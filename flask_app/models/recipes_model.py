@@ -24,11 +24,15 @@ class Recipe: # CHANGE PROJECT TO FILE NAME
         is_valid=True
 
         if len(data['recipe_name']) < 3:
-            flash("Dish name but be at least 3 character")
+            flash("Recipe name but be at least 3 character")
             is_valid = False
 
         if len(data['description']) < 3:
-            flash("Dish name must be at least 3 character")
+            flash("Description must be at least 3 character")
+            is_valid = False
+
+        if len(data['instructions']) < 3:
+            flash("Instructions must be at least 3 character")
             is_valid = False
 
         if data['date_cooked'] == "":
@@ -36,8 +40,8 @@ class Recipe: # CHANGE PROJECT TO FILE NAME
             is_valid = False
 
         if not 'under_30' in data:
-                flash("Time cooked is required")
-                is_valid = False
+            flash("Yes or No is required")
+            is_valid = False
 
 
         return is_valid
@@ -55,11 +59,11 @@ class Recipe: # CHANGE PROJECT TO FILE NAME
     def edit_one(cls, form_data):
         query = """
         UPDATE recipe
-        SET recipe_name = %(name)s,
+        SET recipe_name = %(recipe_name)s,
         description = %(description)s,
-        instructions = %(instruction)s, 
+        instructions = %(instructions)s, 
         date_cooked = %(date_cooked)s, 
-        under_30 = %(0)s
+        under_30 = %(under_30)s
     WHERE id = %(id)s
         """
         recipe =connectToMySQL(DATABASE).query_db(query, form_data)
