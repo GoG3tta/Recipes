@@ -25,7 +25,7 @@
             <tbody>
                 {% for each_recipe in recipe_list: %}
                 <tr>
-                    <td><a href="/recipes/{{each_recipe.id}}">{{each_recipe.recipe_name}}</a></td>
+                    <td>{{each_recipe.recipe_name}}</td>
                     <td>{{each_recipe.under_30}}</td>
                     <td>{{each_recipe.user.first_name}}</td>
                     
